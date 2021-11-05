@@ -50,4 +50,11 @@ public class AutorService {
     public void eliminar(String id){
         autorRepository.deleteById(id);
     }
+
+    @Transactional()
+    public void alta(String id) {
+        Autor autor = autorRepository.getById(id);
+        autor.setAlta(true);
+        autorRepository.save(autor);
+    }
 }

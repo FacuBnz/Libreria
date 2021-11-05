@@ -62,4 +62,10 @@ public class AutorController {
         autorService.eliminar(id);
         return new RedirectView("/autores");
     }
+
+    @PostMapping("/alta")
+    public RedirectView alta(@RequestParam String id) {
+        autorService.alta(id);
+        return new RedirectView("/autores");
+    }
 }
