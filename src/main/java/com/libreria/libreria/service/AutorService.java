@@ -35,4 +35,14 @@ public class AutorService {
     public List<Autor> getAll(){
         return autorRepository.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public Autor getAutor(String id){
+        return autorRepository.findByIdAutor(id);
+    }
+
+    @Transactional()
+    public void modificar(String nombre, String id) {
+        autorRepository.modificar(nombre, id);
+    }
 }
