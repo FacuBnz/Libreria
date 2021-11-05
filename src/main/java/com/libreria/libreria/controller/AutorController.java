@@ -56,4 +56,10 @@ public class AutorController {
         autorService.modificar(nombre, id);
         return new RedirectView("/autores");
     }
+
+    @PostMapping("/eliminar")
+    public RedirectView eliminar(@RequestParam String id) {
+        autorService.eliminar(id);
+        return new RedirectView("/autores");
+    }
 }

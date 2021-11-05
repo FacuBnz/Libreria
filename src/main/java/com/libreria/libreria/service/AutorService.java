@@ -45,4 +45,9 @@ public class AutorService {
     public void modificar(String nombre, String id) {
         autorRepository.modificar(nombre, id);
     }
+
+    @Transactional()
+    public void eliminar(String id){
+        autorRepository.deleteById(id);
+    }
 }
