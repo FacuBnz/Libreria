@@ -21,13 +21,24 @@
         <table>
             <tr>
                 <th>Nombre</th>
+                <th>Estado</th>
                 <th>Opciones</th>
             </tr>
+            </div>
             <tr th:each="autor : ${autores}">
                 <td th:text="${autor.nombre}"></td>
+                <td th:text="${autor.alta == true } ? 'Alta' : 'Baja'"></td>
                 <td>
-                    <a th:href="@{/autores/editar/__${autor.id}__}">Editar </a> 
-                    <a th:href="@{/autores/eliminar/__${autor.id}__}">Eliminar</a>
+                    <a th:href="@{/autores/editar/__${autor.id}__}">Editar </a>
+
+                    <form th:action="@{/autores/eliminar}" method="post" th:if="${autor.alta}">
+                        <input type="hidden" name="id" th:value="${autor.id}">
+                        <button type="submit">Baja</button>
+                    </form>
+                    <form th:action="@{/autores/alta}" method="post" th:unless="${autor.alta}">
+                        <input type="hidden" name="id" th:value="${autor.id}">
+                        <button type="submit">Alta</button>
+                    </form>  
                 </td>
             </tr>
         </table>
