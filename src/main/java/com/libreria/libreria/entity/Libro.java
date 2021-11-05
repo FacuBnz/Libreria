@@ -7,8 +7,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
+@SQLDelete(sql = "UPDATE libro SET alta = false WHERE id = ?")
 public class Libro {
 
     @Id

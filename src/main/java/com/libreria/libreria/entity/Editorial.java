@@ -9,8 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
+@SQLDelete(sql = "UPDATE eidtorial SET alta = false WHERE id = ?")
 public class Editorial {
     
     @Id
