@@ -17,9 +17,21 @@
     </div>
     <div th:unless="${autores.isEmpty()}">
         <h4>Listado de autores</h4>
-        <div th:each="autor : ${autores}">
-            <div th:text="${autor.nombre}"></div>
-        </div>
+        <br>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Opciones</th>
+            </tr>
+            <tr th:each="autor : ${autores}">
+                <td th:text="${autor.nombre}"></td>
+                <td>
+                    <a th:href="@{/autores/editar/__${autor.id}__}">Editar </a> 
+                    <a th:href="@{/autores/eliminar/__${autor.id}__}">Eliminar</a>
+                </td>
+            </tr>
+        </table>
+        <br>
         <a th:href="@{/autores/crear}">Agregar Autor</a>
         <a th:href="@{/}">Volver al inicio</a>
     </div>
