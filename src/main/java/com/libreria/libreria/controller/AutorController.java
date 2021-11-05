@@ -6,6 +6,7 @@ import com.libreria.libreria.service.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +39,21 @@ public class AutorController {
     @PostMapping("/guardar")
     public RedirectView guardar(@RequestParam String nombre){
         autorService.create(nombre);
+        return new RedirectView("/autores");
+    }
+
+    @GetMapping("/editar/{id}")
+    public ModelAndView editar(@PathVariable String id){
+        ModelAndView mav = new ModelAndView("autor-formulario");
+        mav.addObject("autor", autorService.getAutor(id));
+        mav.addObject("tittle", "Modificar Autor");
+        mav.addObject("action", "modificar");
+        return mav;
+    }
+
+    @PostMapping("/modificar")
+    public RedirectView modificar(@RequestParam String nombre, @RequestParam String id){
+        autorService.modificar(nombre, id);
         return new RedirectView("/autores");
     }
 }
