@@ -36,4 +36,28 @@ public class EditorialService {
     public List<Editorial> getAll() {
         return editorialRepository.findAll();
     }
+
+    @Transactional
+    public Editorial getEditorial(String id) {
+        return editorialRepository.findByIdEditorial(id);
+    }
+
+    @Transactional
+    public void modificar(String id, String nombre){
+        Editorial editorial = editorialRepository.getById(id);
+        editorial.setNombre(nombre);
+        editorialRepository.save(editorial);
+    }
+
+    @Transactional
+    public void eliminar(String id) {
+        editorialRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void alta(String id) {
+        Editorial editorial = editorialRepository.getById(id);
+        editorial.setAlta(true);
+        editorialRepository.save(editorial);
+    }
 }
