@@ -6,6 +6,7 @@ import com.libreria.libreria.service.EditorialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +44,31 @@ public class EditorialController {
         editorialService.create(nombre);
         return new RedirectView("/editoriales");
     }
+
+    @GetMapping("/editar/{id}")
+    public ModelAndView editar(@PathVariable String id) {
+        ModelAndView mav = new ModelAndView("editorial-formulario");
+        mav.addObject("editorial", editorialService.getEditorial(id));
+        mav.addObject("tittle", "Modificar editorial");
+        mav.addObject("action", "modificar");
+        return mav;
+    }
+
+    @PostMapping("/modificar")
+    public RedirectView name(@RequestParam String nombre, @RequestParam String id) {
+        editorialService.modificar(id, nombre);
+        return new RedirectView("/editoriales");
+    }
+
+    @PostMapping("/eliminar")
+    public RedirectView name(@RequestParam String id) {
+        editorialService.eliminar(id);
+        return new RedirectView("/editoriales");
+    }
+
+    @PostMapping("/alta")
+    public RedirectView alta(@RequestParam String id) {
+        editorialService.alta(id);
+        return new RedirectView("/editoriales");
+    }
 }
-/**
- * hacer editar y eliminar
- */
