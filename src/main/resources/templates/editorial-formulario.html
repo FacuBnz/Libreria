@@ -12,6 +12,7 @@
     <h1 th:text="${tittle}"></h1>
 
     <form th:action="@{/editoriales/__${action}__}" method="post" th:object="${editorial}">
+        <input type="hidden" th:field="*{id}">
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre" id="nombre" th:field="*{nombre}" required>
         <br>
