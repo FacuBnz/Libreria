@@ -1,5 +1,6 @@
 package com.libreria.libreria.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +19,10 @@ public class Libro {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @Column(unique = true)
     private Long isbn;
+
+    @Column(unique = true)
     private String titulo;
     private Integer anio;
     private Integer ejemplares;
