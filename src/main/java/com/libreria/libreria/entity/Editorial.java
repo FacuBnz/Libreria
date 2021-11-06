@@ -2,6 +2,8 @@ package com.libreria.libreria.entity;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 
 @Entity
-@SQLDelete(sql = "UPDATE eidtorial SET alta = false WHERE id = ?")
+@SQLDelete(sql = "UPDATE editorial SET alta = false WHERE id = ?")
 public class Editorial {
     
     @Id
@@ -20,6 +22,7 @@ public class Editorial {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @Column(unique = true)
     private String nombre;
     private Boolean alta;
     
