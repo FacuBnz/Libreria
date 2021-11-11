@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/libros")
@@ -45,12 +46,8 @@ public class LibroController {
     }
 
     @PostMapping("/guardar")
-    public ModelAndView guardar(@RequestParam String titulo,@RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Long isbn, @RequestParam String autor, @RequestParam String editorial){
+    public RedirectView guardar(@RequestParam String titulo,@RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Long isbn, @RequestParam String autor, @RequestParam String editorial){
         libroService.create(titulo, anio, ejemplares, isbn, autor, editorial);
-        return new ModelAndView("/libros");
+        return new RedirectView("/libros");
     }
 }
-/**
- * hacer servicios, vistas, repositorio controlador de
- * editorial
- */
