@@ -22,12 +22,14 @@
                 <th>Titulo</th>
                 <th>año</th>
                 <th>Autor</th>
+                <th>Editorial</th>
                 <th>Ejemplares Disponibles</th>
             </tr>
             <tr th:each="libro : ${libros}">
                 <td th:text="${libro.titulo}"></td>
                 <td th:text="${libro.anio}"></td>
                 <td th:text="${libro.autor.nombre}"></td>
+                <td th:text="${libro.editorial.nombre}"></td>
                 <td th:text="${libro.ejemplaresRestantes}"></td>
             </tr>
         </table>
