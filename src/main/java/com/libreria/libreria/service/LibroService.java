@@ -45,4 +45,16 @@ public class LibroService {
     public List<Libro> getAll(){
         return libroRepository.findAll();
     }
+
+    @Transactional
+    public void delete(String id) {
+        libroRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void alta(String id) {
+        Libro libro = libroRepository.getById(id);
+        libro.setAlta(true);
+        libroRepository.save(libro);
+    }
 }

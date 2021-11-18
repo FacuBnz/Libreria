@@ -50,4 +50,20 @@ public class LibroController {
         libroService.create(titulo, anio, ejemplares, isbn, autor, editorial);
         return new RedirectView("/libros");
     }
+
+    @PostMapping("/eliminar")
+    public RedirectView eliminar(@RequestParam String id) {
+        libroService.delete(id);
+        return new RedirectView("/libros");
+    }
+
+    @PostMapping("/alta")
+    public RedirectView alta(@RequestParam String id) {
+        libroService.alta(id);
+        return new RedirectView("/libros");
+    }
 }
+/**
+ * Agregar excepciones en guardar, modificar, eliminar y alta
+ * Agregar de alta y baja, modificar en libros 
+ */
