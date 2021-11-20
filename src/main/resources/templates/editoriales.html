@@ -13,6 +13,23 @@
 
     <h1>Editoriales</h1>
 
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEditar != null}">
+        <strong th:text="${errorEditar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorModificar != null}">
+        <strong th:text="${errorModificar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEliminar != null}">
+        <strong th:text="${errorEliminar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorAlta != null}">
+        <strong th:text="${errorAlta}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div th:if="${editoriales.isEmpty()}">
         <h4>Todavia no hay editoriales cargados. <a th:href="@{/editoriales/crear}">Crear Editorial</a></h4>
     </div>
