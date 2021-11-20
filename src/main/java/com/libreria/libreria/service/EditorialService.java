@@ -38,24 +38,36 @@ public class EditorialService {
     }
 
     @Transactional
-    public Editorial getEditorial(String id) {
+    public Editorial getEditorial(String id) throws Exception {
+        if(!editorialRepository.existsById(id)){
+            throw new Exception("No existe la editorial");
+        }
         return editorialRepository.findByIdEditorial(id);
     }
 
     @Transactional
-    public void modificar(String id, String nombre){
+    public void modificar(String id, String nombre) throws Exception {
+        if(!editorialRepository.existsById(id)){
+            throw new Exception("No existe la editorial");
+        }
         Editorial editorial = editorialRepository.getById(id);
         editorial.setNombre(nombre);
         editorialRepository.save(editorial);
     }
 
     @Transactional
-    public void eliminar(String id) {
+    public void eliminar(String id) throws Exception {
+        if(!editorialRepository.existsById(id)){
+            throw new Exception("No existe la editorial");
+        }
         editorialRepository.deleteById(id);
     }
 
     @Transactional
-    public void alta(String id) {
+    public void alta(String id) throws Exception {
+        if(!editorialRepository.existsById(id)){
+            throw new Exception("No existe la editorial");
+        }
         Editorial editorial = editorialRepository.getById(id);
         editorial.setAlta(true);
         editorialRepository.save(editorial);
