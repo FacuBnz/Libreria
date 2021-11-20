@@ -1,5 +1,9 @@
 package com.libreria.libreria.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.libreria.libreria.entity.Editorial;
 import com.libreria.libreria.service.EditorialService;
 
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 
@@ -23,8 +29,15 @@ public class EditorialController {
 
     @GetMapping
 
-    public ModelAndView mostrarTodos() {
+    public ModelAndView mostrarTodos(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("editoriales");
+        Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
+        if( map != null){
+            mav.addObject("errorEditar", map.get("errorEditar"));
+            mav.addObject("errorModificar", map.get("errorModificar"));
+            mav.addObject("errorEliminar", map.get("errorEliminar"));
+            mav.addObject("errorAlta", map.get("errorAlta"));
+        }
         mav.addObject("editoriales", editorialService.getAll());
         return mav;
     }
@@ -46,29 +59,51 @@ public class EditorialController {
     }
 
     @GetMapping("/editar/{id}")
-    public ModelAndView editar(@PathVariable String id) {
+    public ModelAndView editar(@PathVariable String id, RedirectAttributes attribute) {
         ModelAndView mav = new ModelAndView("editorial-formulario");
-        mav.addObject("editorial", editorialService.getEditorial(id));
+        try {
+            mav.addObject("editorial", editorialService.getEditorial(id));
+            
+        } catch (Exception e) {
+            attribute.addFlashAttribute("errorEditar", e.getMessage());
+            return new ModelAndView(new RedirectView("/editoriales"));
+        }
         mav.addObject("tittle", "Modificar editorial");
         mav.addObject("action", "modificar");
         return mav;
     }
 
     @PostMapping("/modificar")
-    public RedirectView name(@RequestParam String nombre, @RequestParam String id) {
-        editorialService.modificar(id, nombre);
+    public RedirectView name(@RequestParam String nombre, @RequestParam String id, RedirectAttributes attribute) {
+        
+        try {
+            editorialService.modificar(id, nombre);
+            
+        } catch (Exception e) {
+            attribute.addFlashAttribute("errorModificar", e.getMessage());
+        }
         return new RedirectView("/editoriales");
     }
 
     @PostMapping("/eliminar")
-    public RedirectView name(@RequestParam String id) {
-        editorialService.eliminar(id);
+    public RedirectView name(@RequestParam String id, RedirectAttributes attribute) {
+        try {
+            editorialService.eliminar(id);
+            
+        } catch (Exception e) {
+            attribute.addFlashAttribute("errorEliminar", e.getMessage());
+        }
         return new RedirectView("/editoriales");
     }
 
     @PostMapping("/alta")
-    public RedirectView alta(@RequestParam String id) {
-        editorialService.alta(id);
+    public RedirectView alta(@RequestParam String id, RedirectAttributes attribute) {
+        try {
+            
+            editorialService.alta(id);
+        } catch (Exception e) {
+            attribute.addFlashAttribute("errorAlta", e.getMessage());
+        }
         return new RedirectView("/editoriales");
     }
 }
