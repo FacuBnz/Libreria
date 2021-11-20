@@ -12,8 +12,23 @@
 <body>
     <h1>Autores</h1>
 
-    <div class="alert alert-danger" th:if="${errorModificar != null}" th:text="${errorModificar}"></div>
-    <div class="alert alert-danger" th:if="${errorAutor != null}" th:text="${errorAutor}"></div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${errorModificar != null}">
+        <strong th:text="${errorModificar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${errorAutor != null}">
+        <strong th:text="${errorAutor}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${errorAutorEliminar != null}">
+        <strong th:text="${errorAutorEliminar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${errorAutorAltar != null}">
+        <strong th:text="${errorAutorAltar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div th:if="${autores.isEmpty()}">
         <h4>Todavia no hay autores cargados. <a th:href="@{/autores/crear}">Crear Autor</a></h4>
     </div>
