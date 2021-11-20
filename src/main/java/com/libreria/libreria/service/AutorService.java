@@ -37,22 +37,41 @@ public class AutorService {
     }
 
     @Transactional(readOnly = true)
-    public Autor getAutor(String id){
+    public Autor getAutor(String id) throws Exception{
+        /** 
+         * lanzar exepciones 
+        */
+        if(!autorRepository.existsById(id)){
+            throw new Exception("El autor no existe");
+        }
         return autorRepository.findByIdAutor(id);
     }
 
     @Transactional()
-    public void modificar(String nombre, String id) {
+    public void modificar(String nombre, String id) throws Exception {
+        
+        /** lanzar excepcion en caso de que no exista el id */
+        if(!autorRepository.existsById(id)){
+            throw new Exception("No existe el autor a modificar");
+        }
+
         autorRepository.modificar(nombre, id);
     }
 
     @Transactional()
-    public void eliminar(String id){
+    public void eliminar(String id) throws Exception{
+
+        if(!autorRepository.existsById(id)){
+            throw new Exception("No existe el autor a eliminar");
+        }
         autorRepository.deleteById(id);
     }
 
     @Transactional()
-    public void alta(String id) {
+    public void alta(String id) throws Exception {
+        if(!autorRepository.existsById(id)){
+            throw new Exception("No existe el autor a dar de alta");
+        }
         Autor autor = autorRepository.getById(id);
         autor.setAlta(true);
         autorRepository.save(autor);
