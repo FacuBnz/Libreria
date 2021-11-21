@@ -12,6 +12,31 @@
 <body>
     <h1>Libros</h1>
 
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorGuardar != null}">
+        <strong th:text="${errorGuardar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEditar != null}">
+        <strong th:text="${errorEditar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorModificar != null}">
+        <strong th:text="${errorModificar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEliminar != null}">
+        <strong th:text="${errorEliminar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorAlta != null}">
+        <strong th:text="${errorAlta}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div th:if="${libros.isEmpty()}">
         <h4>Todavia no hay Libros cargados. <a th:href="@{/libros/crear}">Crear Libro</a></h4>
     </div>
@@ -24,6 +49,7 @@
                 <th>Autor</th>
                 <th>Editorial</th>
                 <th>Ejemplares Disponibles</th>
+                <th>Opciones</th>
             </tr>
             <tr th:each="libro : ${libros}">
                 <td th:text="${libro.titulo}"></td>
@@ -31,6 +57,17 @@
                 <td th:text="${libro.autor.nombre}"></td>
                 <td th:text="${libro.editorial.nombre}"></td>
                 <td th:text="${libro.ejemplaresRestantes}"></td>
+                <td>
+                    <a th:href="@{/libros/editar/__${libro.id}__}">Editar</a>
+                    <form th:action="@{/libros/eliminar}" method="post" th:if="${libro.alta}">
+                        <input type="hidden" name="id" th:value="${libro.id}">
+                        <button type="submit">Baja</button>
+                    </form>
+                    <form th:action="@{/libros/alta}" method="post" th:unless="${libro.alta}">
+                        <input type="hidden" name="id" th:value="${libro.id}">
+                        <button type="submit">Alta</button>
+                    </form>  
+                </td>
             </tr>
         </table>
 
