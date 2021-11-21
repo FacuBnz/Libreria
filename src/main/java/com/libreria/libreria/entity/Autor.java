@@ -13,7 +13,12 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Setter
+@Getter
 @SQLDelete(sql = "UPDATE autor SET alta = false WHERE id = ?")
 public class Autor {
 
@@ -31,45 +36,4 @@ public class Autor {
     public Autor() { 
         this.libros = new ArrayList<>();
     }
-
-    public Autor(String id, String nombre, Boolean alta, List<Libro> libros) {
-        
-        this.id = id;
-        this.nombre = nombre;
-        this.alta = alta;
-        this.libros = libros;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Boolean getAlta() {
-        return alta;
-    }
-
-    public void setAlta(Boolean alta) {
-        this.alta = alta;
-    }
-
-    public void setLibros(List<Libro> libros) {
-        this.libros = libros;
-    }
-    
-    public List<Libro> getLibros() {
-        return libros;
-    }
-
 }

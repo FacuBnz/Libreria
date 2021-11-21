@@ -13,7 +13,12 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Setter
+@Getter
 @SQLDelete(sql = "UPDATE editorial SET alta = false WHERE id = ?")
 public class Editorial {
     
@@ -31,45 +36,6 @@ public class Editorial {
 
     public Editorial() {
         this.libros = new ArrayList<>();
-    }
-    
-    
-    public Editorial(String id, String nombre, Boolean alta) {
-        this.id = id;
-        this.nombre = nombre;
-        this.alta = alta;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    public String getId() {
-        return id;
-    }
-    
-    public Boolean getAlta() {
-        return alta;
-    }
-    
-    public void setAlta(Boolean alta) {
-        this.alta = alta;
-    }
-    
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setLibros(List<Libro> libros) {
-        this.libros = libros;
-    }
-
-    public List<Libro> getLibros() {
-        return libros;
     }
 
 }
