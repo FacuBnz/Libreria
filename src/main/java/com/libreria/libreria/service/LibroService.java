@@ -8,6 +8,7 @@ import com.libreria.libreria.entity.Libro;
 import com.libreria.libreria.repository.AutorRepository;
 import com.libreria.libreria.repository.EditorialRepository;
 import com.libreria.libreria.repository.LibroRepository;
+import com.libreria.libreria.utils.Validaciones;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,12 +39,12 @@ public class LibroService {
         Libro libro = new Libro();
         
         libro.setAlta(true);
-        libro.setAnio(anio);
-        libro.setEjemplares(ejemplares);
+        libro.setAnio(Validaciones.anio(anio));
+        libro.setEjemplares(Validaciones.ejemplares(ejemplares));
         libro.setEjemplaresPrestados(0);
-        libro.setEjemplaresRestantes(ejemplares);
-        libro.setIsbn(isbn);
-        libro.setTitulo(titulo);
+        libro.setEjemplaresRestantes(0);
+        libro.setIsbn(Validaciones.isbn(isbn));
+        libro.setTitulo(Validaciones.titulo(titulo));
         libro.setAutor(autorRepository.findByIdAutor(autor));
         libro.setEditorial(editorialRepository.findByIdEditorial(editorial));
 
@@ -80,10 +81,10 @@ public class LibroService {
 
         Libro libro = libroRepository.getById(id);
 
-        libro.setTitulo(titulo);
-        libro.setAnio(anio);
-        libro.setEjemplares(ejemplares);
-        libro.setIsbn(isbn);
+        libro.setTitulo(Validaciones.titulo(titulo));
+        libro.setAnio(Validaciones.anio(anio));
+        libro.setEjemplares(Validaciones.ejemplares(ejemplares));
+        libro.setIsbn(Validaciones.isbn(isbn));
         libro.setAutor(autorRepository.findByIdAutor(autor));
         libro.setEditorial(editorialRepository.findByIdEditorial(editorial));
         

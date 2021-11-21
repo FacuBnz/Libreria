@@ -5,6 +5,7 @@ import java.util.List;
 import com.libreria.libreria.entity.Editorial;
 import com.libreria.libreria.repository.EditorialRepository;
 import com.libreria.libreria.repository.LibroRepository;
+import com.libreria.libreria.utils.Validaciones;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,12 @@ public class EditorialService {
     private LibroRepository libroRepository;
 
     @Transactional
-    public void create(String nombre){
+    public void create(String nombre) throws Exception{
 
         Editorial editorial = new Editorial();
 
         editorial.setAlta(true);
-        editorial.setNombre(nombre);
+        editorial.setNombre(Validaciones.editorial(nombre));
         editorial.setLibros(libroRepository.findAllForEditorial(nombre));
 
         editorialRepository.save(editorial);
@@ -51,7 +52,7 @@ public class EditorialService {
             throw new Exception("No existe la editorial");
         }
         Editorial editorial = editorialRepository.getById(id);
-        editorial.setNombre(nombre);
+        editorial.setNombre(Validaciones.editorial(nombre));
         editorialRepository.save(editorial);
     }
 
