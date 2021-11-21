@@ -125,7 +125,3 @@ public class LibroController {
         return new RedirectView("/libros");
     }
 }
-/**
- * Agregar excepciones en guardar, modificar, eliminar y alta
- * Agregar de alta y baja, modificar en libros 
- */
