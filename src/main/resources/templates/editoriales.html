@@ -29,6 +29,10 @@
         <strong th:text="${errorAlta}"></strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorGuardar != null}">
+        <strong th:text="${errorGuardar}"></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
     <div th:if="${editoriales.isEmpty()}">
         <h4>Todavia no hay editoriales cargados. <a th:href="@{/editoriales/crear}">Crear Editorial</a></h4>
