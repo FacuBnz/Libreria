@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-opacity-75 sticky-top" style="background: #5225bd !important;">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}"><img th:src="@{/img/libreria.png}" width="40px"/></a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0 w-100">
+                <!--DROPDOWN libros-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-libros" role="button">
+                        Libros
+                    </a>
+                    <ul aria-labelledby="dropdown-libros" class="dropdown-menu dropdown-menu-dark">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/libros}">Mostrar todos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/libros/crear}">Crear usuario</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--DROPDOWN editoriales-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-editoriales" role="button">
+                        Editoriales
+                    </a>
+                    <ul aria-labelledby="dropdown-editoriales" class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" th:href="@{/editoriales}">Mostrar todas</a></li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/editoriales/crear}">Crear Editorial</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--DROPDOWN autores-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-autores" role="button">
+                        Autores
+                    </a>
+                    <ul aria-labelledby="dropdown-autores" class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" th:href="@{/autores}">Mostrar todos</a></li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/autores/crear}">Crear Autor</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer" class="footer py-3 bg-info bg-opacity-75 fixed-bottom" style="background: #5225bd !important;">
+    <div class="container d-flex justify-content-center">
+        <span class="text-light">&copy; Facundo Benitez <strong id="anio"></strong></span>
+    </div>
+</footer>
+
+
+</html>
