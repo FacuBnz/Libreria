@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.libreria.libreria.entity.Autor;
 import com.libreria.libreria.service.AutorService;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ public class AutorController {
             mav.addObject("errorAutor", map.get("errorAutor"));
             mav.addObject("errorAutorEliminar", map.get("errorAutorEliminar"));
             mav.addObject("errorAutorAltar", map.get("errorAutorAltar"));
+            mav.addObject("errorGuardar", map.get("errorGuardar"));
         }
         mav.addObject("autores", autorService.getAll());
         return mav;
@@ -59,8 +61,13 @@ public class AutorController {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre){
-        autorService.create(nombre);
+    public RedirectView guardar(@RequestParam String nombre, RedirectAttributes attributes){
+        try {
+            autorService.create(nombre);
+            
+        } catch (Exception e) {
+            attributes.addFlashAttribute("errorGuardar", e.getMessage());
+        }
         return new RedirectView("/autores");
     }
 

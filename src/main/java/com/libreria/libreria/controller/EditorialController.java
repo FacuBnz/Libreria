@@ -37,6 +37,7 @@ public class EditorialController {
             mav.addObject("errorModificar", map.get("errorModificar"));
             mav.addObject("errorEliminar", map.get("errorEliminar"));
             mav.addObject("errorAlta", map.get("errorAlta"));
+            mav.addObject("errorGuardar", map.get("errorGuardar"));
         }
         mav.addObject("editoriales", editorialService.getAll());
         return mav;
@@ -53,8 +54,12 @@ public class EditorialController {
     }
 
     @PostMapping("/guardar")
-    public RedirectView guardar(@RequestParam String nombre) {
-        editorialService.create(nombre);
+    public RedirectView guardar(@RequestParam String nombre, RedirectAttributes attribute) {
+        try {
+            editorialService.create(nombre);
+        } catch (Exception e) {
+            attribute.addFlashAttribute("errorGuardar", e.getMessage());
+        }
         return new RedirectView("/editoriales");
     }
 
