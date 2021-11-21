@@ -1,3 +1,7 @@
+*{
+    font-family: 'Nunito', sans-serif !important;
+}
+
 table,th,td{
     border-collapse: collapse;
     border: 1.5px solid black;
