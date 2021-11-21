@@ -10,17 +10,20 @@
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
+    <h1 th:text="${tittle}"></h1>
     <form th:action="@{/libros/__${action}__}" method="post" th:object="${libro}">
         <select th:field="*{autor}" id="autor">
             <option value="">Elegir autor</option>
-            <option th:each=" autor : ${autores}" th:text="${autor.nombre}" th:value="${autor.id}"></option>
+            <option th:if="${action == 'guardar'}" th:each=" autor : ${autores}" th:text="${autor.nombre}" th:value="${autor.id}"></option>
+            <option th:if="${action == 'modificar'}" th:each=" autor : ${autores}" th:text="${autor.nombre}" th:value="${autor.id}" th:selected="${autor.id==libro.autor.id}"></option>
         </select>
         <a th:href="@{/autores/crear}">Agregar Nuevo Autor</a>
         <br>
 
         <select th:field="*{editorial}" id="editorial">
             <option value="">Elegir editorial</option>
-            <option th:each=" editorial : ${editoriales}" th:text="${editorial.nombre}" th:value="${editorial.id}"></option>
+            <option th:if="${action == 'guardar'}" th:each=" editorial : ${editoriales}" th:text="${editorial.nombre}" th:value="${editorial.id}"></option>
+            <option th:if="${action == 'modificar'}" th:each=" editorial : ${editoriales}" th:text="${editorial.nombre}" th:value="${editorial.id}" th:selected="${editorial.id==libro.editorial.id}"></option>
         </select>
         <a th:href="@{/editoriales/crear}">Agregar Nueva Editorial</a>
         <br>
@@ -36,6 +39,8 @@
         <label for="ejemplares">Ejemplares</label>
         <input type="number" name="ejemplares" id="ejemplares" th:field="*{ejemplares}" required>
         <br>
+        <input th:if="${action == 'modificar'}" type="hidden" th:name="id" th:field="*{id}">
+
         <button th:text="${action == 'guardar'} ? 'Crear libro' : 'Guardar cambios'" type="submit"></button>
     </form>
 
