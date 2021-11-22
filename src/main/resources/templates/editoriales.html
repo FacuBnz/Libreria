@@ -16,61 +16,71 @@
 
     <nav th:replace="fragmentos :: navbar"></nav>
     
-    <h1>Editoriales</h1>
-    
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEditar != null}">
-        <strong th:text="${errorEditar}"></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="container">
+        <div class="row mb-2">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEditar != null}">
+                <strong th:text="${errorEditar}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorModificar != null}">
+                <strong th:text="${errorModificar}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEliminar != null}">
+                <strong th:text="${errorEliminar}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorAlta != null}">
+                <strong th:text="${errorAlta}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorGuardar != null}">
+                <strong th:text="${errorGuardar}"></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div th:if="${editoriales.isEmpty()}">
+                <div class="d-flex justify-content-center mt-5">
+                    <h1>Todavia no hay editoriales cargados. <a class="btn btn-primary" th:href="@{/editoriales/crear}">Crear Editorial</a></h1>
+                </div>
+                <hr class="my-4">
+            </div>
+            <div th:unless="${editoriales.isEmpty()}">
+                <div class="d-flex justify-content-center mt-5">
+                    <h1>Listado de editoriales</h1>
+                </div>
+                <hr class="my-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tr th:each="editorial : ${editoriales}">
+                        <td th:text="${editorial.nombre}"></td>
+                        <td th:text="${editorial.alta == true } ? 'Alta' : 'Baja'"></td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{/editoriales/editar/__${editorial.id}__}">Editar </a>
+                            
+                            <form class="d-inline" th:action="@{/editoriales/eliminar}" method="post" th:if="${editorial.alta}">
+                                <input type="hidden" name="id" th:value="${editorial.id}">
+                                <button type="submit" class="btn btn-danger">Baja</button>
+                            </form>
+                            <form class="d-inline" th:action="@{/editoriales/alta}" method="post" th:unless="${editorial.alta}">
+                                <input type="hidden" name="id" th:value="${editorial.id}">
+                                <button type="submit" class="btn btn-primary" >Alta</button>
+                            </form>  
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorModificar != null}">
-        <strong th:text="${errorModificar}"></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorEliminar != null}">
-        <strong th:text="${errorEliminar}"></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorAlta != null}">
-        <strong th:text="${errorAlta}"></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorGuardar != null}">
-        <strong th:text="${errorGuardar}"></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    
-    <div th:if="${editoriales.isEmpty()}">
-        <h4>Todavia no hay editoriales cargados. <a th:href="@{/editoriales/crear}">Crear Editorial</a></h4>
-    </div>
-    <div th:unless="${editoriales.isEmpty()}">
-        <h4>Listado de editoriales</h4>
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Estado</th>
-                <th>Opciones</th>
-            </tr>
-            <tr th:each="editorial : ${editoriales}">
-                <td th:text="${editorial.nombre}"></td>
-                <td th:text="${editorial.alta == true } ? 'Alta' : 'Baja'"></td>
-                <td>
-                    <a th:href="@{/editoriales/editar/__${editorial.id}__}">Editar </a>
-                    
-                    <form th:action="@{/editoriales/eliminar}" method="post" th:if="${editorial.alta}">
-                        <input type="hidden" name="id" th:value="${editorial.id}">
-                        <button type="submit">Baja</button>
-                    </form>
-                    <form th:action="@{/editoriales/alta}" method="post" th:unless="${editorial.alta}">
-                        <input type="hidden" name="id" th:value="${editorial.id}">
-                        <button type="submit">Alta</button>
-                    </form>  
-                </td>
-            </tr>
-        </table>
-    </div>
-    <a th:href="@{/editoriales/crear}">Agregar Editorial</a>
-    <a th:href="@{/}">Volver al inicio</a>
-    
+
     <footer th:replace="fragmentos :: footer"></footer>
     
 <!-- JS -->
