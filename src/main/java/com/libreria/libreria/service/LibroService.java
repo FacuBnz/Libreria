@@ -42,7 +42,7 @@ public class LibroService {
         libro.setAnio(Validaciones.anio(anio));
         libro.setEjemplares(Validaciones.ejemplares(ejemplares));
         libro.setEjemplaresPrestados(0);
-        libro.setEjemplaresRestantes(0);
+        libro.setEjemplaresRestantes(Validaciones.ejemplares(ejemplares));
         libro.setIsbn(Validaciones.isbn(isbn));
         libro.setTitulo(Validaciones.titulo(titulo));
         libro.setAutor(autorRepository.findByIdAutor(autor));
