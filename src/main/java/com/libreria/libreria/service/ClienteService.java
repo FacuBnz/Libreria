@@ -28,8 +28,12 @@ public class ClienteService implements UserDetailsService {
     private final String MENSAJE = "El email ingresado no existe %s";
 
     @Transactional
-    public void created(String nombre, String apellido, Long dni, String email, String clave) {
+    public void created(String nombre, String apellido, Long dni, String email, String clave) throws Exception {
         
+        if(clienteRepository.existsByEmail(email)){
+            throw new Exception("Ya existe un cliente con el mismo correo");
+        }
+
         Cliente cliente = new Cliente();
 
         cliente.setNombre(nombre);
@@ -62,7 +66,7 @@ public class ClienteService implements UserDetailsService {
     public void modificar(String id, String nombre, String apellido, Long dni, String email, String clave) throws Exception {
         
         if(!clienteRepository.existsById(id)){
-            throw new Exception("No existe el clinete");
+            throw new Exception("No existe el cliente");
         }
         clienteRepository.modificar(nombre, apellido, dni, email, clave, id);
     }
