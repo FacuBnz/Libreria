@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+        <!-- CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow" style="border-radius: 1rem;">
+                        <div class="card-body p-4 text-center">
+        
+                            <div th:if="${error}" class="container mt-2 text-center">
+                                <div class="row">
+                                    <div th:text="${error}" class="alert alert-danger mb-4 shadow"></div>
+                                </div>
+                            </div>
+                            
+                            <h3 class="mb-5">Registro</h3>
+            
+                            <form class="needs-validation" th:action="@{/registro}" method="post" novalidate>
+                                <div class="form-outline mb-3">
+                                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingresar nombre" th:value="${nombre}" required>
+                                    <div class="valid-feedback"></div> 
+                                    <div class="invalid-feedback">Ingresar nombre valido</div>                     
+                                </div>
+
+                                <div class="form-outline mb-3">
+                                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingresar apellido" th:value="${apellido}" required>
+                                    <div class="valid-feedback"></div> 
+                                    <div class="invalid-feedback">Ingresar apellido valido</div>                     
+                                </div>
+
+                                <div class="form-outline mb-3">
+                                    <input type="number" class="form-control" name="dni" id="dni" placeholder="Ingresar nro de documento" th:value="${dni}" required>
+                                    <div class="valid-feedback"></div> 
+                                    <div class="invalid-feedback">Ingresar nro valido</div>                     
+                                </div>
+
+                                <div class="form-outline mb-3">
+
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Ingresar correo electronico" th:value="${email}" required>
+                                    <div class="valid-feedback"></div> 
+                                    <div class="invalid-feedback">Ingresar mail valido</div>                     
+                                </div>
+                
+                                <div class="form-outline mb-3">
+                                    <input type="password" id="clave" class="form-control" placeholder="Ingresar contraseña" name="clave" th:value="${clave}" required/>
+                                    <div class="valid-feedback"></div> 
+                                    <div class="invalid-feedback">Debe ingresar una contraseña valida</div>
+                                </div>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Resgistrar</button>
+                            </form>
+            
+                            <hr class="my-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+<script>
+    (function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+        }, false)
+    })
+    })()
+    var y = new Date().getFullYear();
+    document.getElementById('anio').innerHTML = y
+</script>
+</html>
